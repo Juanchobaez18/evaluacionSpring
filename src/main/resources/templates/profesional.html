@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es"  xmlns:th="http://thymeLeaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal del Profesional - Innovento</title>
+  <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body class="panel">
+  <header class="panel-header">
+    <h1>Panel del Profesional</h1>
+  </header>
+
+  <section class="panel-content">
+    <div class="panel-box">
+      <h2>Mis Citas Programadas</h2>
+      <ul>
+        <li>Usuario: Juan Pérez - 28/10/2025 - 10:00 AM</li>
+        <li>Usuario: Ana Gómez - 30/10/2025 - 2:00 PM</li>
+      </ul>
+    </div>
+
+    <div class="panel-box">
+      <h2>Actualizar Horario</h2>
+      <form>
+        <input type="datetime-local" required>
+        <button class="btn">Actualizar</button>
+      </form>
+    </div>
+  </section>
+</body>
+</html>

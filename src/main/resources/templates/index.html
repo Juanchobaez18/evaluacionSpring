@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Innovento - Asesorías en Tecnología</title>
+	<link rel="stylesheet" th:href="@{/estilos.css}" />
+</head>
+
+<body>
+	<header>
+		<div class="logo">Innovento</div>
+		<nav>
+			<a href="#inicio">Inicio</a>
+			<a href="#servicios">Servicios</a>
+			<a href="#nosotros">Nosotros</a>
+			<a href="#contacto">Contacto</a>
+		</nav>
+	</header>
+
+	<section id="inicio" class="hero">
+		<h1>Impulsa tu futuro con Innovento</h1>
+		<p>Asesorías especializadas en tecnología e innovación.</p>
+	</section>
+
+	<!-- LOGIN -->
+	<section class="auth-section">
+		<div class="auth-container">
+			<div class="form-box">
+				<h2>Iniciar sesión</h2>
+				<form th:action="@{/usuario/login}" method="post">
+					<input type="email" name="email" id="email" placeholder="Correo" required>
+					<input type="password" name="password" id="password" placeholder="Contraseña" required>
+					<button type="submit">Ingresar</button>
+				</form>
+
+				<!-- Mensaje de error si las credenciales son incorrectas -->
+				<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
+				<!-- Mensaje si el registro fue exitoso -->
+				<p th:if="${param.registroExitoso}" style="color:green;">Registro exitoso. ¡Ya puedes iniciar sesión!
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- SERVICIOS -->
+	<section id="servicios" class="services">
+		<h2>Nuestros Campos Especializados</h2>
+		<div class="cards">
+			<div class="card" th:each="servicio: ${servicios}">
+				<h3 th:text="${servicio.nombre}">Nombre del Servicio</h3>
+				<p th:text="${serv.descripcion}">Descripción del servicio</p>
+				<p><strong>Duración:</strong> <span th:text="${serv.duracion}"></span></p>
+				<p><strong>Precio:</strong> $<span th:text="${serv.precio}"></span></p>
+			</div>
+		</div>
+	</section>
+
+	<!-- NOSOTROS -->
+	<section id="nosotros" class="about">
+		<div class="cards">
+			<h2>Sobre Nosotros</h2>
+			<div class="card">
+				<p><strong>Misión:</strong> Brindar asesorías tecnológicas de alta calidad que impulsen la innovación y
+					el crecimiento digital de nuestros clientes.</p>
+			</div>
+			<div class="card">
+				<p><strong>Visión:</strong> Ser una empresa líder en soluciones tecnológicas y asesorías digitales en
+					Latinoamérica para 2030.</p>
+			</div>
+			<div class="card">
+				<p><strong>Valores:</strong> Innovación, Compromiso, Ética, Excelencia y Colaboración.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- REGISTRO -->
+	<section class="auth-section">
+		<div class="auth-container">
+			<div class="form-box">
+				<h2>Registro</h2>
+				<form th:action="@{/usuario/guardar}" method="post" th:object="${usuario}">
+					<input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required />
+					<input type="email" id="email" name="email" placeholder="Correo electrónico" required />
+					<input type="password" id="password" name="password" placeholder="Contraseña" required />
+					<input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required />
+					<button type="submit" class="btn">Registrarse</button>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<p>© 2025 Innovento. Todos los derechos reservados.</p>
+	</footer>
+</body>
+
+</html>

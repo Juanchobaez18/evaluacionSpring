@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Panel de Administración - Innovento</title>
+	<link rel="stylesheet" th:href="@{/estilos.css}" />
+</head>
+
+<body class="panel">
+	<header class="panel-header">
+		<h1>Panel de Administración</h1>
+	</header>
+
+	<section class="panel-content">
+
+		<!-- SECCIÓN SERVICIOS -->
+		<div class="panel-box">
+			<h2>Gestión de Servicios</h2>
+
+			<!-- FORMULARIO DE REGISTRO -->
+			<form th:action="@{/admin/guardarServicio}" method="post" th:object="${servicio}">
+				<input type="text" id="nombre" namw="nombre" placeholder="Nombre del servicio" required />
+				<input type="text" id="duracion" namw="duracion" placeholder="Duración (ej: 1 hora)" required />
+				<input type="number" id="precio" namw="precio" placeholder="Precio" required />
+				<input type="text" id="descripcion" namw="descripcion" placeholder="Descripción" required />
+				<button class="btn">Registrar Servicio</button>
+			</form>
+
+			<hr>
+
+			<h3>Servicios Registrados</h3>
+			<table border="1" style="width:100%; text-align:left;">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Duración</th>
+						<th>Precio</th>
+						<th>Descripción</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="serv : ${listaServicios}">
+						<td th:text="${serv.nombre}"></td>
+						<td th:text="${serv.duracion}"></td>
+						<td th:text="${serv.precio}"></td>
+						<td th:text="${serv.descripcion}"></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+	</section>
+</body>
+
+</html>
