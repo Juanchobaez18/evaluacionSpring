@@ -1,8 +1,11 @@
 package com.example.evaluacion.controller;
 
-import com.example.evaluacion.model.Profesional;
 import com.example.evaluacion.model.Servicio;
-import com.example.evaluacion.service.*;
+import com.example.evaluacion.service.IServicioService;
+import com.example.evaluacion.service.IUsuarioService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,23 +17,43 @@ public class AdminController {
 
 	@Autowired
 	private IServicioService servicioService;
-	@Autowired
-	private IProfesionalService profesionalService;
-	@Autowired
-	private ICitaService citaService;
-	@Autowired
-	private IUsuarioService usuarioService;
 
+	// ✅ Mostrar el panel con la lista de servicios
 	@GetMapping("/panel")
 	public String mostrarPanel(Model model) {
+		System.out.println("✅ Entrando a /admin/panel");
+
+		List<Servicio> servicios = servicioService.listar();
+		System.out.println("🟢 Servicios encontrados: " + servicios.size());
+		servicios.forEach(s -> System.out.println(" - " + s.getNombre()));
+
 		model.addAttribute("servicio", new Servicio());
+		model.addAttribute("listaServicios", servicios);
+		return "admin/panelAdministrador";
+	}
+
+	// ✅ Guardar o actualizar servicio
+	@PostMapping("/guardarServicio")
+	public String guardarServicio(@ModelAttribute Servicio servicio) {
+		servicioService.save(servicio);
+		return "redirect:/admin/panel";
+	}
+
+	@GetMapping("/editarServicio/{id}")
+	public String editarServicio(@PathVariable Integer id, Model model) {
+		Servicio servicio = servicioService.get(id);
+		if (servicio == null) {
+			throw new IllegalArgumentException("ID de servicio no válido: " + id);
+		}
+		model.addAttribute("servicio", servicio);
 		model.addAttribute("listaServicios", servicioService.listar());
 		return "admin/panelAdministrador";
 	}
 
-	@PostMapping("/guardarServicio")
-	public String guardarServicio(@ModelAttribute Servicio servicio) {
-		servicioService.guardar(servicio);
+	// ✅ Eliminar un servicio
+	@GetMapping("/eliminarServicio/{id}")
+	public String eliminarServicio(@PathVariable Integer id) {
+		servicioService.delete(id);
 		return "redirect:/admin/panel";
 	}
 

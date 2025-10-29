@@ -21,35 +21,50 @@
 
 			<!-- FORMULARIO DE REGISTRO -->
 			<form th:action="@{/admin/guardarServicio}" method="post" th:object="${servicio}">
-				<input type="text" id="nombre" namw="nombre" placeholder="Nombre del servicio" required />
-				<input type="text" id="duracion" namw="duracion" placeholder="Duración (ej: 1 hora)" required />
-				<input type="number" id="precio" namw="precio" placeholder="Precio" required />
-				<input type="text" id="descripcion" namw="descripcion" placeholder="Descripción" required />
-				<button class="btn">Registrar Servicio</button>
+				<input type="hidden" th:field="*{id}" />
+
+				<input type="text" th:field="*{nombre}" placeholder="Nombre del servicio" required />
+				<input type="text" th:field="*{duracion}" placeholder="Duración (ej: 1 hora)" required />
+				<input type="number" th:field="*{precio}" placeholder="Precio" required />
+				<input type="text" th:field="*{descripcion}" placeholder="Descripción" required />
+
+				<button class="btn" type="submit"
+					th:text="${servicio.id} != null ? 'Actualizar Servicio' : 'Registrar Servicio'">
+					Registrar Servicio
+				</button>
 			</form>
+
 
 			<hr>
 
 			<h3>Servicios Registrados</h3>
-			<table border="1" style="width:100%; text-align:left;">
-				<thead>
-					<tr>
-						<th>Nombre</th>
-						<th>Duración</th>
-						<th>Precio</th>
-						<th>Descripción</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="serv : ${listaServicios}">
-						<td th:text="${serv.nombre}"></td>
-						<td th:text="${serv.duracion}"></td>
-						<td th:text="${serv.precio}"></td>
-						<td th:text="${serv.descripcion}"></td>
-					</tr>
-				</tbody>
-			</table>
+			<div>
+				<table border="1" style="width:100%; text-align:left;">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Duración</th>
+							<th>Precio</th>
+							<th>Descripción</th>
+							<th>Editar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="serv : ${listaServicios}">
+							<td th:text="${serv.nombre}"></td>
+							<td th:text="${serv.duracion}"></td>
+							<td th:text="${serv.precio}"></td>
+							<td th:text="${serv.descripcion}"></td>
+							<td>
+								<a th:href="@{'/admin/editarServicio/' + ${serv.id}}" class="btn btn-edit">Editar</a>
+								<a th:href="@{'/admin/eliminarServicio/' + ${serv.id}}" class="btn btn-delete"
+									onclick="return confirm('¿Seguro que deseas eliminar este servicio?');">Eliminar</a>
+							</td>
 
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 	</section>

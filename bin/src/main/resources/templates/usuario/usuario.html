@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es"  xmlns:th="http://thymeLeaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal del Usuario - Innovento</title>
+  <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body class="panel">
+  <header class="panel-header">
+	<h1>Bienvenido 👋</h1>
+	 
+	  <a href="/">Cerrar sesión</a>
+  </header>
+
+  <section class="panel-content">
+    <div class="panel-box">
+      <h2>Agendar Nueva Cita</h2>
+      <form>
+        <select required>
+          <option value="">Selecciona un servicio</option>
+          <option>Desarrollo de Software</option>
+          <option>Desarrollo Web</option>
+          <option>Aplicaciones Móviles</option>
+        </select>
+        <input type="datetime-local" required>
+        <button class="btn">Agendar</button>
+      </form>
+    </div>
+
+    <div class="panel-box">
+      <h2>Mis Citas</h2>
+      <ul>
+        <li>Software - 28/10/2025 - Pendiente</li>
+        <li>Aplicaciones Móviles - 30/10/2025 - Confirmada</li>
+      </ul>
+    </div>
+  </section>
+</body>
+</html>

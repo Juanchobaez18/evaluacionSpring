@@ -49,8 +49,8 @@
 	<section id="servicios" class="services">
 		<h2>Nuestros Campos Especializados</h2>
 		<div class="cards">
-			<div class="card" th:each="serv : ${listaServicios}">
-				<h3 th:text="${serv.nombre}">Nombre del Servicio</h3>
+			<div class="card" th:each="servicio: ${servicios}">
+				<h3 th:text="${servicio.nombre}">Nombre del Servicio</h3>
 				<p th:text="${serv.descripcion}">Descripción del servicio</p>
 				<p><strong>Duración:</strong> <span th:text="${serv.duracion}"></span></p>
 				<p><strong>Precio:</strong> $<span th:text="${serv.precio}"></span></p>

@@ -1,6 +1,7 @@
 package com.example.evaluacion.controller;
 
 import com.example.evaluacion.model.Usuario;
+import com.example.evaluacion.service.IServicioService;
 import com.example.evaluacion.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,17 +21,12 @@ public class UsuarioController {
 		return "index"; // Thymeleaf del index con el form
 	}
 
-	 // 🧍 Registrar nuevo usuario
-    @PostMapping("/guardar")
-    public String guardarUsuario(@ModelAttribute Usuario usuario, Model model) {
-        usuarioService.guardar(usuario);
-        // Redirige al index con mensaje de éxito
-        return "redirect:/?registroExitoso=true";
-    }
-
-	@GetMapping("/login")
-	public String mostrarLogin() {
-		return "index"; // tu vista del login
+	// 🧍 Registrar nuevo usuario
+	@PostMapping("/guardar")
+	public String guardarUsuario(@ModelAttribute Usuario usuario, Model model) {
+		usuarioService.guardar(usuario);
+		// Redirige al index con mensaje de éxito
+		return "redirect:/?registroExitoso=true";
 	}
 
 	@PostMapping("/login")
@@ -42,7 +38,8 @@ public class UsuarioController {
 			model.addAttribute("usuario", usuario);
 
 			if (usuario.getId() == 1) {
-				return "admin/panelAdministrador";
+				return "redirect:/admin/panel";
+
 			} else {
 				return "usuario/usuario";
 			}
@@ -51,22 +48,11 @@ public class UsuarioController {
 			return "index";
 		}
 	}
-	
+
 	@GetMapping("/")
 	public String mostrarInicio(Model model) {
-	    model.addAttribute("usuario", new Usuario());
-	    return "index";
-	}
-	
-	@Controller
-	public class InicioController {
-
-	    @GetMapping("/")
-	    public String mostrarInicio(Model model) {
-	        model.addAttribute("usuario", new Usuario()); // <- Necesario para que Thymeleaf lo reconozca
-	        return "index";
-	    }
+		model.addAttribute("usuario", new Usuario());
+		return "index";
 	}
 
 }
-
